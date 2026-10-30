@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS AI Kelas 6 SD - Kecerdasan Artifisial vs Alami</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf7ff;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c4b5fd;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #a78bfa;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVBAR -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-purple-100 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('menu')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-purple-200">
+                        <i class="fa-solid me-0 fa-brain text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold bg-gradient-to-r from-purple-700 to-indigo-600 bg-clip-text text-transparent">
+                            AI-Kids LMS
+                        </h1>
+                        <p class="text-xs bold text-purple-600 font-medium">Kelas 6 Sekolah Dasar</p>
+                        <p class="text-xs text-red-600 font-small">By : idil Adha Muslimin Hilal, S.Pd</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Tabs -->
+                <nav class="hidden md:flex space-x-2">
+                    <button id="nav-menu" onclick="navigateTo('menu')" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 bg-purple-100 text-purple-700">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Menu Utama</span>
+                    </button>
+                    <button id="nav-materi" onclick="navigateTo('materi')" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-purple-50 hover:text-purple-600 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>Materi</span>
+                    </button>
+                    <button id="nav-evaluasi" onclick="navigateTo('evaluasi')" class="px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-purple-50 hover:text-purple-600 transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <span>Evaluasi</span>
+                    </button>
+                    <button id="nav-admin" onclick="openAdminModal()" class="px-4 py-2 rounded-xl text-sm font-semibold text-amber-700 bg-amber-50 hover:bg-amber-100 transition-all flex items-center space-x-2 border border-amber-200">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>Akses Guru</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Navigation Menu Toggle -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-lg text-purple-700 hover:bg-purple-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-purple-100 bg-white px-4 pt-2 pb-4 space-y-2">
+            <button onclick="navigateTo('menu'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg font-medium text-purple-700 bg-purple-50 flex items-center space-x-3">
+                <i class="fa-solid fa-house w-5"></i><span>Menu Utama</span>
+            </button>
+            <button onclick="navigateTo('materi'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-purple-50 flex items-center space-x-3">
+                <i class="fa-solid fa-book-open w-5"></i><span>Materi Pembelajaran</span>
+            </button>
+            <button onclick="navigateTo('evaluasi'); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg font-medium text-slate-600 hover:bg-purple-50 flex items-center space-x-3">
+                <i class="fa-solid fa-pen-to-square w-5"></i><span>Evaluasi Mandiri</span>
+            </button>
+            <button onclick="openAdminModal(); toggleMobileMenu()" class="w-full text-left px-3 py-2 rounded-lg font-medium text-amber-700 bg-amber-50 flex items-center space-x-3">
+                <i class="fa-solid fa-user-shield w-5"></i><span>Portal Guru / Admin</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= PAGE 1: MENU UTAMA ================= -->
+        <section id="page-menu" class="space-y-8 animate-fade-in">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-purple-200">
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+                        🎓 Modul Pembelajaran Informatika
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight mb-3">
+                        Mengenal Kecerdasan Artifisial (KA) vs Kecerdasan Alami
+                    </h2>
+                    <p class="text-purple-100 text-sm sm:text-base leading-relaxed mb-6">
+                        Halo Teman-teman Kelas 6! Yuk pelajari bagaimana komputer pintar bekerja dan apa bedanya dengan otak cerdas yang dimiliki manusia.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="navigateTo('materi')" class="px-6 py-3 bg-white text-purple-700 font-bold rounded-xl shadow-md hover:bg-purple-50 transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-play text-purple-600"></i>
+                            <span>Mulai Belajar Sekarang</span>
+                        </button>
+                        <button onclick="navigateTo('evaluasi')" class="px-6 py-3 bg-purple-700/50 hover:bg-purple-700 text-white font-semibold rounded-xl backdrop-blur-sm border border-purple-300/30 transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <span>Uji Pemahaman</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Decorative Icon Background -->
+                <i class="fa-solid fa-robot absolute -right-6 -bottom-8 text-9xl text-white/10 pointer-events-none"></i>
+            </div>
+
+            <!-- Features Cards Grid -->
+            <div>
+                <h3 class="text-xl font-bold text-slate-800 mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-compass text-purple-600"></i>
+                    <span>Pilih Modul Pembelajaran</span>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Card 1: Materi -->
+                    <div onclick="navigateTo('materi')" class="group bg-white p-6 rounded-2xl border border-purple-100 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <span class="text-xs font-bold text-purple-600 bg-purple-50 px-3 py-1 rounded-full border border-purple-100">
+                                Step 1
+                            </span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 group-hover:text-purple-600 transition-colors mb-2">
+                                📖 Materi Pembelajaran & Video
+                            </h4>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                                Pelajari penjelasan seru mengenai pengertian AI (Kecerdasan Artifisial), perbandingannya dengan otak manusia, serta tonton video pembahasannya!
+                            </p>
+                        </div>
+                        <div class="flex items-center text-sm font-semibold text-purple-600 group-hover:translate-x-1 transition-transform">
+                            <span>Buka Materi</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Evaluasi -->
+                    <div onclick="navigateTo('evaluasi')" class="group bg-white p-6 rounded-2xl border border-purple-100 shadow-sm hover:shadow-xl hover:border-purple-300 transition-all cursor-pointer relative overflow-hidden flex flex-col justify-between">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+                            <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                                Step 2
+                            </span>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 group-hover:text-indigo-600 transition-colors mb-2">
+                                ✏️ Evaluasi & Kuis Interaktif
+                            </h4>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                                Kerjakan 5 soal pilihan ganda acak dari 25 bank soal. Dapatkan nilai langsung dan sertifikat skor belajar kamu di sini!
+                            </p>
+                        </div>
+                        <div class="flex items-center text-sm font-semibold text-indigo-600 group-hover:translate-x-1 transition-transform">
+                            <span>Mulai Kuis</span>
+                            <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Info Box -->
+            <div class="bg-purple-50/70 border border-purple-200/60 rounded-2xl p-5 flex items-start space-x-4">
+                <div class="text-purple-600 text-2xl mt-1">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div>
+                    <h5 class="font-bold text-purple-900 text-sm mb-1">Tips Belajar untuk Siswa SD Kelas 6:</h5>
+                    <p class="text-xs text-purple-800 leading-relaxed">
+                        Bacalah materi tulisan dan saksikan video animasi pembelajaran terlebih dahulu sebelum memulai sesi Kuis Evaluasi. Jangan lupa isi identitas diri kamu dengan benar ya!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 2: MATERI PEMBELAJARAN ================= -->
+        <section id="page-materi" class="hidden space-y-8 animate-fade-in">
+            <!-- Header Title -->
+            <div class="bg-white p-6 rounded-2xl border border-purple-100 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-bold text-purple-600 uppercase tracking-wider bg-purple-50 px-2.5 py-1 rounded-md">Modul Materi</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mt-1">Mendefinisikan Kecerdasan Artifisial (KA)</h2>
+                    <p class="text-sm text-slate-500">Memahami perbedaan utama Kecerdasan Artifisial dan Kecerdasan Alami.</p>
+                </div>
+                <button onclick="navigateTo('evaluasi')" class="px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl text-sm transition-all shadow-md shadow-purple-200 flex items-center space-x-2">
+                    <span>Lanjut ke Evaluasi</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+
+            <!-- VIDEO YOUTUBE EMBED (BAGIAN ATAS) -->
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-purple-100 shadow-sm space-y-3">
+                <div class="flex items-center space-x-2 text-purple-700 font-bold text-base">
+                    <i class="fa-brands fa-youtube text-red-500 text-xl"></i>
+                    <span>Video Pembelajaran: Apa itu Kecerdasan Buatan (AI)?</span>
+                </div>
+                <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-slate-900 shadow-inner">
+                    <!-- YouTube Embed Video Frame -->
+                    <iframe 
+                        class="w-full h-full border-0"
+                        src="https://www.youtube.com/embed/2ePf9rue1Ao" 
+                        title="Video Edukasi Kecerdasan Artifisial Kelas 6 SD" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="text-xs text-slate-500 text-center italic">Tonton video di atas untuk pemahaman visual yang lebih seru!</p>
+            </div>
+
+            <!-- MATERI TULISAN -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Section 1: Kecerdasan Alami -->
+                <div class="bg-white p-6 rounded-2xl border border-purple-100 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg font-bold">
+                        🧠
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">1. Kecerdasan Alami (Natural Intelligence)</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Kecerdasan alami adalah kemampuan berpikir, belajar, dan merasakan yang dimiliki oleh <strong>manusia dan makhluk hidup</strong> sejak lahir.
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2 pt-2">
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                            <span><strong>Berasal dari Otak:</strong> Belajar dari pengalaman hidup sehari-hari.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                            <span><strong>Punya Perasaan:</strong> Manusia punya rasa empati, sedih, gembira, dan kasih sayang.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                            <span><strong>Dapat Lelah:</strong> Otak dan tubuh manusia butuh istirahat dan tidur.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Section 2: Kecerdasan Artifisial -->
+                <div class="bg-white p-6 rounded-2xl border border-purple-100 shadow-sm space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-lg font-bold">
+                        🤖
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800">2. Kecerdasan Artifisial / KA (Artificial Intelligence)</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Kecerdasan Artifisial (KA / AI) adalah <strong>kecerdasan buatan</strong> yang dirancang oleh manusia ke dalam sistem komputer agar komputer dapat berpikir layaknya manusia.
+                    </p>
+                    <ul class="text-sm text-slate-600 space-y-2 pt-2">
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-purple-500 mt-1"></i>
+                            <span><strong>Dibuat oleh Manusia:</strong> Program Komputer & Data Kumpulan Algoritma.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-purple-500 mt-1"></i>
+                            <span><strong>Tanpa Emosi:</strong> AI tidak bisa menangis, tertawa, atau merasakan kasih sayang.</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fa-solid fa-check text-purple-500 mt-1"></i>
+                            <span><strong>Sangat Cepat & Tanpa Lelah:</strong> Dapat memproses ribuan data dalam hitungan detik.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="bg-white p-6 rounded-2xl border border-purple-100 shadow-sm space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center space-x-2">
+                    <i class="fa-solid fa-scale-balanced text-purple-600"></i>
+                    <span>Tabel Perbandingan: Alami vs Artifisial</span>
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-slate-600">
+                        <thead class="text-xs text-purple-800 uppercase bg-purple-50 rounded-lg">
+                            <tr>
+                                <th class="px-4 py-3 rounded-l-lg">Ciri-Ciri</th>
+                                <th class="px-4 py-3">🧠 Kecerdasan Alami (Manusia)</th>
+                                <th class="px-4 py-3 rounded-r-lg">🤖 Kecerdasan Artifisial (KA/AI)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-purple-50">
+                            <tr>
+                                <td class="px-4 py-3 font-semibold text-slate-700">Pencipta</td>
+                                <td class="px-4 py-3">Tuhan / Alami dari Lahir</td>
+                                <td class="px-4 py-3">Dibuat oleh Manusia / Programmer</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-semibold text-slate-700">Cara Belajar</td>
+                                <td class="px-4 py-3">Pengalaman hidup, sekolah & rasa ingin tahu</td>
+                                <td class="px-4 py-3">Diisi data, contoh foto, & instruksi coding</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-semibold text-slate-700">Perasaan / Emosi</td>
+                                <td class="px-4 py-3">Memiliki rasa sedih, gembira, & empati</td>
+                                <td class="px-4 py-3">Tidak punya perasaan sama sekali</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-semibold text-slate-700">Kecepatan Hitung</td>
+                                <td class="px-4 py-3">Butuh waktu untuk berpikir</td>
+                                <td class="px-4 py-3">Sangat cepat hitungan milidetik</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-semibold text-slate-700">Kelelahan</td>
+                                <td class="px-4 py-3">Bisa lelah dan butuh tidur</td>
+                                <td class="px-4 py-3">Bisa bekerja 24 jam nonstop selama ada listrik</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contoh AI di Kehidupan Sehari-hari -->
+            <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-2xl border border-purple-100 space-y-3">
+                <h3 class="text-lg font-bold text-purple-900">💡 Contoh Kecerdasan Artifisial di Sekitar Kita:</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                        <div class="text-2xl mb-1">📱</div>
+                        <div class="text-xs font-bold text-slate-700">Asisten Suara</div>
+                        <div class="text-[10px] text-slate-500">Google Assistant, Siri</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                        <div class="text-2xl mb-1">🎬</div>
+                        <div class="text-xs font-bold text-slate-700">Rekomendasi Video</div>
+                        <div class="text-[10px] text-slate-500">YouTube & TikTok</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                        <div class="text-2xl mb-1">🚗</div>
+                        <div class="text-xs font-bold text-slate-700">Mobil Otonom</div>
+                        <div class="text-[10px] text-slate-500">Mobil Mengemudi Sendiri</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-purple-100">
+                        <div class="text-2xl mb-1">📸</div>
+                        <div class="text-xs font-bold text-slate-700">Deteksi Wajah</div>
+                        <div class="text-[10px] text-slate-500">Kamera & Filter HP</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Call to Action -->
+            <div class="text-center pt-4">
+                <button onclick="navigateTo('evaluasi')" class="px-8 py-3.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-purple-200 transition-all text-base inline-flex items-center space-x-3">
+                    <i class="fa-solid fa-pencil-square"></i>
+                    <span>Sudah Paham? Uji Diri Di Sini!</span>
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: EVALUASI (KUIS) ================= -->
+        <section id="page-evaluasi" class="hidden space-y-6 animate-fade-in">
+
+            <!-- STEP 1: FORM IDENTITAS SISWA -->
+            <div id="evaluasi-identitas" class="max-w-xl mx-auto bg-white p-6 sm:p-8 rounded-3xl border border-purple-100 shadow-md space-y-6">
+                <div class="text-center space-y-2">
+                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mx-auto text-2xl font-bold">
+                        📝
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-800">Identitas Peserta Didik</h2>
+                    <p class="text-xs text-slate-500">Isi data diri kamu dengan jujur dan lengkap sebelum memulai tes kuis.</p>
+                </div>
+
+                <form id="form-siswa" onsubmit="startQuiz(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Nama Lengkap Siswa</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                <i class="fa-solid fa-user"></i>
+                            </span>
+                            <input type="text" id="input-nama" required placeholder="Contoh: Budi Santoso" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none text-sm transition-all">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Kelas / No. Absen</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </span>
+                                <input type="text" id="input-kelas" required placeholder="Contoh: 6A / 12" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none text-sm transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1">Nama Sekolah</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-school"></i>
+                                </span>
+                                <input type="text" id="input-sekolah" required placeholder="SDN 1 Nusantara" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none text-sm transition-all">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-3 rounded-xl text-xs text-purple-700 flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-purple-500"></i>
+                        <span>Kuis terdiri dari <strong>5 Soal Acak</strong>. Nilai max: 100 (+20 per soal).</span>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl shadow-md shadow-purple-200 transition-all text-sm flex items-center justify-center space-x-2">
+                        <span>Mulai Mengerjakan</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+
+
+            <!-- STEP 2: LEMBAR SOAL EVALUASI -->
+            <div id="evaluasi-soal" class="hidden max-w-3xl mx-auto space-y-6">
+                <!-- Bar Profil Siswa -->
+                <div class="bg-white px-6 py-4 rounded-2xl border border-purple-100 shadow-sm flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
+                    <div class="flex items-center space-x-4">
+                        <div><span class="text-slate-400">Nama:</span> <strong id="quiz-badge-nama" class="text-purple-700"></strong></div>
+                        <div><span class="text-slate-400">Kelas:</span> <strong id="quiz-badge-kelas" class="text-purple-700"></strong></div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <button onclick="resetStage()" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg font-semibold transition-all flex items-center space-x-1 border border-rose-200">
+                            <i class="fa-solid fa-rotate-left text-xs"></i>
+                            <span>Reset Stage</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Questions List Container -->
+                <form id="quiz-form" onsubmit="submitQuiz(event)" class="space-y-6">
+                    <div id="quiz-questions-container" class="space-y-6">
+                        <!-- Questions dynamically injected via JS -->
+                    </div>
+
+                    <!-- Submit Action Button -->
+                    <div class="bg-white p-5 rounded-2xl border border-purple-100 shadow-sm flex items-center justify-between">
+                        <p class="text-xs text-slate-500">Pastikan semua 5 soal sudah terjawab sebelum mengirim.</p>
+                        <button type="submit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition-all shadow-md shadow-emerald-200 flex items-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Kirim Jawaban Evaluasi</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+
+            <!-- STEP 3: BANNER UMPAN BALIK & RESULT -->
+            <div id="evaluasi-hasil" class="hidden max-w-2xl mx-auto space-y-6">
+                <!-- Dynamic Feedback Banner -->
+                <div id="feedback-banner" class="p-8 rounded-3xl text-center space-y-4 shadow-xl border">
+                    <div id="feedback-icon" class="text-6xl">🎉</div>
+                    <div>
+                        <h2 id="feedback-title" class="text-2xl font-extrabold mb-1">Pesan Feedback</h2>
+                        <p id="feedback-subtitle" class="text-sm opacity-90">Sub Pesan</p>
+                    </div>
+
+                    <div class="inline-block px-6 py-3 bg-white/30 backdrop-blur-md rounded-2xl border border-white/40">
+                        <span class="text-xs uppercase font-bold tracking-wider block mb-0.5">Nilai Akhir Kamu:</span>
+                        <span id="final-score" class="text-4xl font-extrabold">100</span>
+                        <span class="text-sm font-semibold"> / 100</span>
+                    </div>
+
+                    <p id="feedback-detail" class="text-xs max-w-md mx-auto opacity-90 leading-relaxed"></p>
+                </div>
+
+                <!-- Action Options after quiz -->
+                <div class="bg-white p-6 rounded-2xl border border-purple-100 shadow-sm flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="resetStage()" class="w-full sm:w-auto px-5 py-2.5 bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold rounded-xl text-sm transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Coba Kuis Lagi</span>
+                    </button>
+                    <button onclick="navigateTo('menu')" class="w-full sm:w-auto px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl text-sm transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Kembali ke Menu Utama</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= PAGE 4: ADMIN / SPREADSHEET AREA ================= -->
+        <section id="page-admin" class="hidden space-y-6 animate-fade-in">
+            <!-- Admin Top Header -->
+            <div class="bg-white p-6 rounded-2xl border border-amber-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-table-list"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">Portal Admin / Guru - Lembar Rekapitulasi</h2>
+                        <p class="text-xs text-slate-500">Kelola dan unduh data hasil pengerjaan evaluasi siswa (Spreadsheet).</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="downloadSpreadsheetCSV()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Download Spreadsheet (.CSV)</span>
+                    </button>
+                    <button onclick="logoutAdmin()" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-bold rounded-xl transition-all">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Stats Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold uppercase">Total Responden</div>
+                        <div id="stat-total-siswa" class="text-2xl font-bold text-slate-800">0 Siswa</div>
+                    </div>
+                    <div class="text-purple-500 text-2xl"><i class="fa-solid fa-users"></i></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold uppercase">Rata-Rata Skor</div>
+                        <div id="stat-rata-skor" class="text-2xl font-bold text-slate-800">0</div>
+                    </div>
+                    <div class="text-emerald-500 text-2xl"><i class="fa-solid fa-chart-line"></i></div>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex items-center justify-between">
+                    <div>
+                        <div class="text-xs text-slate-400 font-semibold uppercase">Skor Tertinggi</div>
+                        <div id="stat-skor-tertinggi" class="text-2xl font-bold text-slate-800">0</div>
+                    </div>
+                    <div class="text-amber-500 text-2xl"><i class="fa-solid fa-trophy"></i></div>
+                </div>
+            </div>
+
+            <!-- Spreadsheet Table Container -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">Tabel Data Pengerjaan Evaluasi Siswa</span>
+                    <span class="text-xs text-slate-400">Logika Nilai: Benar +20, Salah 0 (Max 100)</span>
+                </div>
+                
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-xs text-left text-slate-600">
+                        <thead class="text-[11px] text-slate-500 uppercase bg-slate-100 border-b border-slate-200">
+                            <tr>
+                                <th class="px-4 py-3">No</th>
+                                <th class="px-4 py-3">Nama Siswa</th>
+                                <th class="px-4 py-3">Kelas / Absen</th>
+                                <th class="px-4 py-3">Nama Sekolah</th>
+                                <th class="px-4 py-3">Waktu Selesai</th>
+                                <th class="px-4 py-3 text-center">Skor Akhir</th>
+                                <th class="px-4 py-3 text-center">Aksi Pengelolaan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="spreadsheet-tbody" class="divide-y divide-slate-100">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty state placeholder -->
+                <div id="empty-spreadsheet-msg" class="p-8 text-center text-slate-400 hidden">
+                    <i class="fa-regular fa-folder-open text-4xl mb-2"></i>
+                    <p class="text-xs">Belum ada data evaluasi siswa yang terkumpul.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-purple-100 py-6 mt-12 text-center text-xs text-slate-400">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>© 2026 LMS Kecerdasan Artifisial SD Kelas 6 — Pembelajaran Interaktif Informatika</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DIALOGS (REPLACING NATIVE ALERTS) -->
+    
+    <!-- Modal Login Password Admin -->
+    <div id="modal-admin-login" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl border border-purple-100 p-6 space-y-5 animate-fade-in">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2 text-amber-600 font-bold">
+                    <i class="fa-solid fa-lock text-lg"></i>
+                    <span>Verifikasi Akses Guru / Admin</span>
+                </div>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <p class="text-xs text-slate-500">Masukkan kata sandi guru untuk membuka fitur pengelolaan spreadsheet dan download data nilai evaluasi.</p>
+            
+            <form onsubmit="verifyAdminPassword(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kata Sandi (Password)</label>
+                    <input type="password" id="input-password-admin" required placeholder="Masukkan kata sandi..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-amber-500 focus:ring-2 focus:ring-amber-200 outline-none text-sm transition-all">
+                </div>
+                <div id="admin-pass-error" class="text-xs text-rose-500 hidden flex items-center space-x-1">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <span>Password salah! Silakan coba lagi.</span>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeAdminModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Batal</button>
+                    <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold shadow-md shadow-amber-200">Masuk Portal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Notification Toast -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 z-50 bg-slate-800 text-white px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-3 text-xs transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none">
+        <div id="toast-icon" class="text-emerald-400 text-lg"><i class="fa-solid fa-circle-check"></i></div>
+        <div id="toast-message">Pesan notifikasi</div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==================== 1. DATA BANK SOAL (25 SOAL) ==================== */
+        const QUESTION_BANK = [
+            {
+                id: 1,
+                question: "Apa kepanjangan dari KA dalam topik modul pembelajaran ini?",
+                options: ["Kecerdasan Artifisial", "Kecerdasan Alami", "Komputer Artifisial", "Komunikasi Aktif"],
+                answer: 0
+            },
+            {
+                id: 2,
+                question: "Kecerdasan yang dimiliki manusia sejak lahir dan berkembang melalui pengalaman hidup disebut...",
+                options: ["Kecerdasan Artifisial", "Kecerdasan Buatan", "Kecerdasan Alami", "Kecerdasan Komputer"],
+                answer: 2
+            },
+            {
+                id: 3,
+                question: "Siapa yang merancang dan membuat sistem Kecerdasan Artifisial (AI)?",
+                options: ["Komputer itu sendiri", "Manusia / Programmer", "Hewan pintar", "Robot lain"],
+                answer: 1
+            },
+            {
+                id: 4,
+                question: "Contoh penerapan Kecerdasan Artifisial yang paling sering kita temui di smartphone adalah...",
+                options: ["Kipas angin mini", "Asisten suara seperti Google Assistant atau Siri", "Lampu senter HP", "Casing handphone"],
+                answer: 1
+            },
+            {
+                id: 5,
+                question: "Apakah Kecerdasan Artifisial (AI) memiliki rasa empati, sedih, dan gembira seperti manusia?",
+                options: ["Ya, sangat sensitif", "Tidak, AI tidak punya perasaan sama sekali", "Kadang-kadang saat malam", "Hanya jika baterai penuh"],
+                answer: 1
+            },
+            {
+                id: 6,
+                question: "Fitur pada kamera ponsel yang dapat mengenali senyuman atau wajah manusia menggunakan teknologi...",
+                options: ["Kecerdasan Artifisial (Computer Vision)", "Lensa mekanis biasa", "Kaca pembesar", "Sinar X-ray"],
+                answer: 0
+            },
+            {
+                id: 7,
+                question: "Apa perbedaan utama antara cara belajar manusia dan cara belajar sistem AI?",
+                options: ["Manusia belajar dari emosi & pengalaman, AI belajar dari pemrosesan kumpulan data", "Manusia belajar pakai listrik, AI belajar pakai makanan", "AI belajar di sekolah, manusia di dalam folder", "Tidak ada bedanya"],
+                answer: 0
+            },
+            {
+                id: 8,
+                question: "Robot pembersih lantai otomatis dapat menyapu tanpa menabrak tembok karena dilengkapi...",
+                options: ["Kecerdasan Alami", "Sensor dan Algoritma AI", "Bantuan remote jarak jauh terus menerus", "Mata seperti manusia"],
+                answer: 1
+            },
+            {
+                id: 9,
+                question: "Kecerdasan Alami (Natural Intelligence) terdapat pada makhluk berikut, KECUALI...",
+                options: ["Siswa Sekolah Dasar", "Burung Elang", "Laptop / Komputer", "Guru di sekolah"],
+                answer: 2
+            },
+            {
+                id: 10,
+                question: "Apa yang terjadi jika sistem AI diprogram untuk bekerja terus menerus selama 24 jam nonstop?",
+                options: ["AI akan mengantuk dan tidur", "AI akan menangis karena capek", "AI dapat bekerja tanpa lelah selama ada aliran listrik", "AI akan berubah menjadi manusia"],
+                answer: 2
+            },
+            {
+                id: 11,
+                question: "Kemampuan komputer untuk menirukan pola pikir dan keputusan manusia disebut...",
+                options: ["Kecerdasan Buatan / AI", "Kecerdasan Biologis", "Insting Alami", "Kecerdasan Emosional"],
+                answer: 0
+            },
+            {
+                id: 12,
+                question: "Contoh alat transportasi modern yang memanfaatkan AI untuk berjalan sendiri tanpa sopir adalah...",
+                options: ["Sepeda ontel", "Mobil Otonom (Self-driving car)", "Perahu dayung", "Delman"],
+                answer: 1
+            },
+            {
+                id: 13,
+                question: "Sistem di aplikasi YouTube yang menyarankan video favorit sesuai kesukaanmu bekerja menggunakan...",
+                options: ["Sistem Rekomendasi Algoritma AI", "Tebakan acak tanpa aturan", "Surat kabar harian", "Petugas yang mengetik manual"],
+                answer: 0
+            },
+            {
+                id: 14,
+                question: "Manusia bisa merasakan rasa kasihan saat melihat teman terjatuh. Hal ini adalah contoh dari...",
+                options: ["Kecerdasan Artifisial", "Kecerdasan Alami & Perasaan Manusia", "Kecerdasan Mesin", "Perangkat Lunak"],
+                answer: 1
+            },
+            {
+                id: 15,
+                question: "Salah satu kelebihan utama Kecerdasan Artifisial dibandingkan manusia adalah...",
+                options: ["Memiliki hati nurani", "Dapat menganalisis jutaan data angka sangat cepat", "Bisa merasakan lezatnya makanan", "Bisa berenang di laut"],
+                answer: 1
+            },
+            {
+                id: 16,
+                question: "Perangkat keras yang bertindak sebagai 'mata' bagi sistem AI untuk menangkap gambar adalah...",
+                options: ["Kamera / Sensor Gambar", "Speaker Suara", "Kabel Listrik", "Keyboard"],
+                answer: 0
+            },
+            {
+                id: 17,
+                question: "Apa hal paling penting yang dibutuhkan oleh sistem AI agar bisa makin pintar belajar?",
+                options: ["Data dan Informasi yang berkualitas", "Nasi dan Air Minum", "Tempat Tidur Nyaman", "Buku Tulis Kertas"],
+                answer: 0
+            },
+            {
+                id: 18,
+                question: "Jika pasokan listrik mati total dan baterai habis, maka sistem AI akan...",
+                options: ["Tetap berjalan dengan insting", "Mati dan tidak dapat beroperasi", "Berpikir secara alami", "Pindah ke komputer lain secara ajaib"],
+                answer: 1
+            },
+            {
+                id: 19,
+                question: "Manusia menciptakan lagu dengan penuh perasaan sedih dan gembira. Ciptaan lagu ini bersumber dari...",
+                options: ["Kecerdasan Alami Manusia", "Kecerdasan Artifisial", "Kabel Listrik", "Prosesor Komputer"],
+                answer: 0
+            },
+            {
+                id: 20,
+                question: "Saat kamu berbicara pada fitur Google Translate untuk mengubah bahasa secara otomatis, AI menggunakan fitur...",
+                options: ["Pengenal Suara (Speech Recognition)", "Pencetak Kertas", "Layar Sentuh", "Kamera Depan"],
+                answer: 0
+            },
+            {
+                id: 21,
+                question: "Siapakah yang bertanggung jawab jika sebuah sistem AI melakukan kesalahan?",
+                options: ["Komputer itu sendiri disidang", "Manusia pembuat dan penggunanya", "Kabel daya", "Layar monitor"],
+                answer: 1
+            },
+            {
+                id: 22,
+                question: "Manakah di bawah ini yang BUKAN contoh penerapan Kecerdasan Artifisial?",
+                options: ["Filter efek wajah lucu di TikTok", "Kipas angin biasa dengan saklar manual", "Navigasi jalan di Google Maps", "Chatbot otomatis penjawab pesan"],
+                answer: 1
+            },
+            {
+                id: 23,
+                question: "Mengapa AI tidak bisa menggantikan kehangatan dan kasih sayang seorang Guru di sekolah?",
+                options: ["Karena AI harganya murah", "Karena AI tidak memiliki hati, kasih sayang, dan empati", "Karena AI selalu tertidur di kelas", "Karena AI tidak suka membaca"],
+                answer: 1
+            },
+            {
+                id: 24,
+                question: "Game catur komputer yang dapat memprediksi ribuan langkah pemain memanfaatkan...",
+                options: ["Algoritma Kecerdasan Artifisial", "Mistik", "Keberuntungan belaka", "Kecerdasan Alami Komputer"],
+                answer: 0
+            },
+            {
+                id: 25,
+                question: "Bagaimana sikap terbaik siswa SD Kelas 6 terhadap perkembangan Kecerdasan Artifisial (AI)?",
+                options: ["Takut dan tidak mau belajar komputer", "Mempelajarinya dan memanfaatkannya secara bijak untuk kebaikan", "Menggunakannya untuk berbuat curang saat ujian", "Acuh tak acuh"],
+                answer: 1
+            }
+        ];
+
+        /* ==================== 2. GLOBAL STATE ==================== */
+        let currentStudentData = null;
+        let selectedQuestions = [];
+        let isAdminLoggedIn = false;
+        const ADMIN_PASSWORD_CORRECT = "Idiladha";
+
+        /* LocalStorage Helpers */
+        function getStoredSubmissions() {
+            const data = localStorage.getItem("lms_ai_submissions");
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveSubmissionsToStorage(submissions) {
+            localStorage.setItem("lms_ai_submissions", JSON.stringify(submissions));
+        }
+
+        /* ==================== 3. NAVIGATION CONTROLLER ==================== */
+        function navigateTo(pageId) {
+            // Hide all pages
+            ['menu', 'materi', 'evaluasi', 'admin'].forEach(p => {
+                document.getElementById(`page-${p}`).classList.add('hidden');
+            });
+
+            // Show target page
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+
+            // Reset Nav Buttons Style
+            const navs = ['menu', 'materi', 'evaluasi'];
+            navs.forEach(n => {
+                const btn = document.getElementById(`nav-${n}`);
+                if (btn) {
+                    if (n === pageId) {
+                        btn.className = "px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center space-x-2 bg-purple-100 text-purple-700";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-xl text-sm font-semibold text-slate-600 hover:bg-purple-50 hover:text-purple-600 transition-all flex items-center space-x-2";
+                    }
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Reload admin table if navigating to admin
+            if (pageId === 'admin') {
+                renderSpreadsheetTable();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        /* ==================== 4. EVALUASI / QUIZ LOGIC ==================== */
+        function startQuiz(e) {
+            e.preventDefault();
+            const nama = document.getElementById('input-nama').value.trim();
+            const kelas = document.getElementById('input-kelas').value.trim();
+            const sekolah = document.getElementById('input-sekolah').value.trim();
+
+            if (!nama || !kelas || !sekolah) {
+                showToast("Mohon lengkapi semua data identitas siswa!", "error");
+                return;
+            }
+
+            currentStudentData = { nama, kelas, sekolah };
+
+            // Pick 5 random questions from 25
+            selectedQuestions = getRandomQuestions(5);
+
+            // Render Questions
+            renderQuizQuestions();
+
+            // Set Badges
+            document.getElementById('quiz-badge-nama').innerText = nama;
+            document.getElementById('quiz-badge-kelas').innerText = kelas;
+
+            // Switch sub-views
+            document.getElementById('evaluasi-identitas').classList.add('hidden');
+            document.getElementById('evaluasi-soal').classList.remove('hidden');
+            document.getElementById('evaluasi-hasil').classList.add('hidden');
+
+            showToast("Kuis dimulai! Selamat mengerjakan 😊", "info");
+        }
+
+        function getRandomQuestions(count) {
+            const shuffled = [...QUESTION_BANK].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function renderQuizQuestions() {
+            const container = document.getElementById('quiz-questions-container');
+            container.innerHTML = '';
+
+            selectedQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-2xl border border-purple-100 shadow-sm space-y-4";
+
+                const questionNum = idx + 1;
+                
+                let optionsHTML = '';
+                q.options.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <label class="flex items-center p-3 rounded-xl border border-slate-200 hover:bg-purple-50/50 hover:border-purple-300 transition-all cursor-pointer">
+                            <input type="radio" name="question_${idx}" value="${optIdx}" class="w-4 h-4 text-purple-600 focus:ring-purple-500 border-slate-300" required>
+                            <span class="ml-3 text-sm text-slate-700">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 font-bold text-xs rounded-lg">
+                            Soal #${questionNum}
+                        </span>
+                        <span class="text-xs font-semibold text-slate-400">Bobot: +20 Poin</span>
+                    </div>
+                    <p class="text-sm sm:text-base font-semibold text-slate-800 leading-relaxed">
+                        ${q.question}
+                    </p>
+                    <div class="space-y-2 pt-2">
+                        ${optionsHTML}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function submitQuiz(e) {
+            e.preventDefault();
+
+            let score = 0;
+            let correctCount = 0;
+
+            selectedQuestions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="question_${idx}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score += 20;
+                    correctCount += 1;
+                }
+            });
+
+            const timestamp = new Date().toLocaleString('id-ID', { 
+                day: '2-digit', month: 'short', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit' 
+            });
+
+            // Submission record
+            const submission = {
+                id: Date.now(),
+                nama: currentStudentData.nama,
+                kelas: currentStudentData.kelas,
+                sekolah: currentStudentData.sekolah,
+                skor: score,
+                correctCount: correctCount,
+                waktu: timestamp
+            };
+
+            // Save to localStorage
+            const submissions = getStoredSubmissions();
+            submissions.push(submission);
+            saveSubmissionsToStorage(submissions);
+
+            // Display Results & Feedback Banner
+            displayFeedbackResults(submission);
+
+            showToast("Jawaban kamu berhasil dikirim!", "success");
+        }
+
+        function displayFeedbackResults(sub) {
+            document.getElementById('evaluasi-soal').classList.add('hidden');
+            document.getElementById('evaluasi-hasil').classList.remove('hidden');
+
+            const score = sub.skor;
+            document.getElementById('final-score').innerText = score;
+
+            const banner = document.getElementById('feedback-banner');
+            const icon = document.getElementById('feedback-icon');
+            const title = document.getElementById('feedback-title');
+            const subtitle = document.getElementById('feedback-subtitle');
+            const detail = document.getElementById('feedback-detail');
+
+            if (score === 100) {
+                banner.className = "p-8 rounded-3xl text-center space-y-4 shadow-xl border bg-gradient-to-br from-emerald-500 to-teal-600 text-white border-emerald-400";
+                icon.innerText = "🌟";
+                title.innerText = "Luar Biasa Perfect!";
+                subtitle.innerText = `Selamat ${sub.nama}, Kamu Pakar AI Cilik!`;
+                detail.innerText = "Kamu berhasil menjawab seluruh 5 soal dengan benar. Pemahaman kamu tentang Kecerdasan Artifisial dan Otak Manusia sangat hebat!";
+            } else if (score >= 80) {
+                banner.className = "p-8 rounded-3xl text-center space-y-4 shadow-xl border bg-gradient-to-br from-purple-600 to-indigo-600 text-white border-purple-400";
+                icon.innerText = "🚀";
+                title.innerText = "Kerja Bagus Sekali!";
+                subtitle.innerText = `Hebat, ${sub.nama}! Pemahamanmu Sangat Baik!`;
+                detail.innerText = `Kamu menjawab ${sub.correctCount} dari 5 soal dengan benar. Teruskan semangat belajarmu di modul Informatika!`;
+            } else if (score >= 60) {
+                banner.className = "p-8 rounded-3xl text-center space-y-4 shadow-xl border bg-gradient-to-br from-amber-500 to-orange-500 text-white border-amber-400";
+                icon.innerText = "👍";
+                title.innerText = "Cukup Bagus!";
+                subtitle.innerText = `Bagus ${sub.nama}, Kamu Sudah Berusaha Cukup Baik!`;
+                detail.innerText = `Kamu menjawab ${sub.correctCount} dari 5 soal. Baca kembali materi perbandingan AI dan Kecerdasan Alami agar nilai kamu sempurna!`;
+            } else {
+                banner.className = "p-8 rounded-3xl text-center space-y-4 shadow-xl border bg-gradient-to-br from-rose-500 to-pink-600 text-white border-rose-400";
+                icon.innerText = "📚";
+                title.innerText = "Jangan Menyerah!";
+                subtitle.innerText = `Tetap Semangat, ${sub.nama}! Coba Lagi Yuk!`;
+                detail.innerText = "Yuk pelajari lagi penjelasan di modul materi dan tonton ulang videonya, lalu tekan tombol coba kuis di bawah ini!";
+            }
+        }
+
+        function resetStage() {
+            // Reset quiz to student form or restart questions
+            document.getElementById('evaluasi-hasil').classList.add('hidden');
+            document.getElementById('evaluasi-soal').classList.add('hidden');
+            document.getElementById('evaluasi-identitas').classList.remove('hidden');
+
+            showToast("Stage evaluasi di-reset. Silakan mulai kembali.", "info");
+        }
+
+        /* ==================== 5. ADMIN & SPREADSHEET LOGIC ==================== */
+        function openAdminModal() {
+            if (isAdminLoggedIn) {
+                navigateTo('admin');
+            } else {
+                document.getElementById('modal-admin-login').classList.remove('hidden');
+                document.getElementById('input-password-admin').value = '';
+                document.getElementById('admin-pass-error').classList.add('hidden');
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('modal-admin-login').classList.add('hidden');
+        }
+
+        function verifyAdminPassword(e) {
+            e.preventDefault();
+            const pass = document.getElementById('input-password-admin').value;
+
+            if (pass === ADMIN_PASSWORD_CORRECT) {
+                isAdminLoggedIn = true;
+                closeAdminModal();
+                navigateTo('admin');
+                showToast("Berhasil login sebagai Guru / Admin!", "success");
+            } else {
+                document.getElementById('admin-pass-error').classList.remove('hidden');
+            }
+        }
+
+        function logoutAdmin() {
+            isAdminLoggedIn = false;
+            navigateTo('menu');
+            showToast("Anda telah keluar dari Portal Guru.", "info");
+        }
+
+        function renderSpreadsheetTable() {
+            const tbody = document.getElementById('spreadsheet-tbody');
+            const emptyMsg = document.getElementById('empty-spreadsheet-msg');
+            const submissions = getStoredSubmissions();
+
+            tbody.innerHTML = '';
+
+            // Update stats
+            document.getElementById('stat-total-siswa').innerText = `${submissions.length} Siswa`;
+            
+            if (submissions.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                document.getElementById('stat-rata-skor').innerText = '0';
+                document.getElementById('stat-skor-tertinggi').innerText = '0';
+                return;
+            } else {
+                emptyMsg.classList.add('hidden');
+            }
+
+            const totalScore = submissions.reduce((acc, curr) => acc + curr.skor, 0);
+            const avgScore = (totalScore / submissions.length).toFixed(1);
+            const maxScore = Math.max(...submissions.map(s => s.skor));
+
+            document.getElementById('stat-rata-skor').innerText = avgScore;
+            document.getElementById('stat-skor-tertinggi').innerText = maxScore;
+
+            submissions.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition-colors";
+
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-semibold text-slate-400">${index + 1}</td>
+                    <td class="px-4 py-3 font-bold text-slate-800">${escapeHtml(item.nama)}</td>
+                    <td class="px-4 py-3">${escapeHtml(item.kelas)}</td>
+                    <td class="px-4 py-3 text-slate-500">${escapeHtml(item.sekolah)}</td>
+                    <td class="px-4 py-3 text-slate-400 text-[11px]">${item.waktu}</td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="inline-block px-2.5 py-1 rounded-full text-xs font-bold ${
+                            item.skor >= 80 ? 'bg-emerald-100 text-emerald-700' : 
+                            item.skor >= 60 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'
+                        }">
+                            ${item.skor} / 100
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 text-center">
+                        <div class="flex items-center justify-center space-x-1">
+                            <!-- Reset Individual -->
+                            <button onclick="resetIndividualSiswa(${item.id})" title="Reset Perindividu (Ulang Pengerjaan)" class="p-1.5 bg-amber-50 hover:bg-amber-100 text-amber-600 rounded-lg transition-all border border-amber-200">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                            <!-- Hapus Ganda -->
+                            <button onclick="deleteSubmission(${item.id})" title="Hapus Data (Data Ganda)" class="p-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition-all border border-rose-200">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resetIndividualSiswa(id) {
+            let submissions = getStoredSubmissions();
+            const target = submissions.find(s => s.id === id);
+            
+            if (!target) return;
+
+            submissions = submissions.filter(s => s.id !== id);
+            saveSubmissionsToStorage(submissions);
+            renderSpreadsheetTable();
+            showToast(`Hasil pengerjaan ${target.nama} berhasil di-reset!`, "info");
+        }
+
+        function deleteSubmission(id) {
+            let submissions = getStoredSubmissions();
+            submissions = submissions.filter(s => s.id !== id);
+            saveSubmissionsToStorage(submissions);
+            renderSpreadsheetTable();
+            showToast("Data pengerjaan berhasil dihapus.", "success");
+        }
+
+        function downloadSpreadsheetCSV() {
+            const submissions = getStoredSubmissions();
+            if (submissions.length === 0) {
+                showToast("Tidak ada data evaluasi untuk diunduh!", "error");
+                return;
+            }
+
+            // CSV Header
+            let csvContent = "\uFEFF"; // UTF-8 BOM for Excel alignment
+            csvContent += "No,Nama Siswa,Kelas / No Absen,Nama Sekolah,Waktu Selesai,Skor Akhir,Jumlah Benar,Status\n";
+
+            submissions.forEach((item, index) => {
+                const status = item.skor >= 60 ? "LULUS" : "REMIDIAL";
+                const row = [
+                    index + 1,
+                    `"${item.nama.replace(/"/g, '""')}"`,
+                    `"${item.kelas.replace(/"/g, '""')}"`,
+                    `"${item.sekolah.replace(/"/g, '""')}"`,
+                    `"${item.waktu}"`,
+                    item.skor,
+                    item.correctCount,
+                    status
+                ].join(",");
+                csvContent += row + "\n";
+            });
+
+            // Download Trigger
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Hasil_Evaluasi_AI_Kelas6_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showToast("File Spreadsheet (.CSV) berhasil diunduh!", "success");
+        }
+
+        /* ==================== 6. HELPER UTILITIES ==================== */
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        function showToast(message, type = "info") {
+            const toast = document.getElementById('toast-notification');
+            const msgEl = document.getElementById('toast-message');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.innerText = message;
+
+            if (type === "success") {
+                iconEl.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i>`;
+            } else if (type === "error") {
+                iconEl.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-400"></i>`;
+            } else {
+                iconEl.innerHTML = `<i class="fa-solid fa-circle-info text-sky-400"></i>`;
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
